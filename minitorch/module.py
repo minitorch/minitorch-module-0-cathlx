@@ -41,7 +41,7 @@ class Module:
         for module in self.modules():
             module.eval()
 
-    def named_parameters(self, prefix: str = '') -> Sequence[Tuple[str, Parameter]]:
+    def named_parameters(self, prefix: str = "") -> Sequence[Tuple[str, Parameter]]:
         """Collect all the parameters of this module and its descendents.
 
         Returns
@@ -49,9 +49,18 @@ class Module:
             The name and `Parameter` of each ancestor parameter.
 
         """
-        parameters: list[tuple[str, Parameter]] = list([(prefix + '.' + k if prefix else k, v) for k, v in self._parameters.items()])
-        for module_name, module in self.__dict__['_modules'].items():
-            parameters.extend(module.named_parameters(prefix + '.' + module_name if prefix else module_name))
+        parameters: list[tuple[str, Parameter]] = list(
+            [
+                (prefix + "." + k if prefix else k, v)
+                for k, v in self._parameters.items()
+            ]
+        )
+        for module_name, module in self.__dict__["_modules"].items():
+            parameters.extend(
+                module.named_parameters(
+                    prefix + "." + module_name if prefix else module_name
+                )
+            )
         return parameters
 
     def parameters(self) -> Sequence[Parameter]:

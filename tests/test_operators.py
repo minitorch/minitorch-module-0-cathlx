@@ -23,7 +23,7 @@ from minitorch.operators import (
     relu,
     relu_back,
     sigmoid,
-    sum
+    sum,
 )
 
 from .strategies import assert_close, small_floats
@@ -112,7 +112,11 @@ def test_sigmoid(a: float) -> None:
     assert 0 <= s <= 1
     assert_close(1 - s, sigmoid(-a))
     assert sigmoid(0) == 0.5
-    assert sigmoid(a - 1) < sigmoid(a + 1) if -6 <= a <= 6 else sigmoid(a - 1) <= sigmoid(a + 1)
+    assert (
+        sigmoid(a - 1) < sigmoid(a + 1)
+        if -6 <= a <= 6
+        else sigmoid(a - 1) <= sigmoid(a + 1)
+    )
 
 
 @pytest.mark.task0_2
@@ -158,7 +162,6 @@ def test_transitive(a: float, b: float, c: float) -> None:
             assert a_lt_b
 
 
-
 @pytest.mark.task0_2
 @given(small_floats, small_floats)
 def test_symmetric(a: float, b: float) -> None:
@@ -179,6 +182,7 @@ def test_distribute(x: float, y: float, z: float) -> None:
     assert_close(max(x, min(y, z)), min(max(x, y), max(x, z)))
     assert_close(x + max(y, z), max(x + y, x + z))
 
+
 @pytest.mark.task0_2
 @given(small_floats, small_floats, small_floats)
 def test_associativity(x: float, y: float, z: float) -> None:
@@ -187,6 +191,7 @@ def test_associativity(x: float, y: float, z: float) -> None:
     assert_close(add(add(x, y), z), add(x, add(y, z)))
     assert_close(mul(mul(x, y), z), mul(x, mul(y, z)))
     assert_close(max(x, max(y, z)), max(max(x, y), z))
+
 
 # ## Task 0.3  - Higher-order functions
 
