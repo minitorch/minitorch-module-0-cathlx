@@ -55,7 +55,7 @@ def neg(x: float) -> float:
     return float(-x)
 
 
-def lt(x: float, y: float) -> bool:
+def lt(x: float, y: float) -> float:
     """Checks if one number is less than another"""
     return 1.0 if x < y else 0.0
 
@@ -154,7 +154,7 @@ def zipWith(
             return
 
 
-def reduce(func: Callable[[Any], Any], iterable: Iterable[Any]) -> Any:
+def reduce(func: Callable[[float, float], float], iterable: Iterable[float]) -> float:
     iterator = iter(iterable)
     try:
         res = next(iterator)
